@@ -212,10 +212,6 @@ git commit -m "Add Exercise 9 Jenkins multi-stage pipeline"
 git push
 ```
 
-```
-<!-- PASTE OUTPUT HERE -->
-```
-
 ### Step 4: Create the Pipeline job
 
 1. On the Jenkins dashboard, click **New Item**.
@@ -238,7 +234,133 @@ Click **Save**.
 On the job page, click **Build Now**. Open the build number in **Build History**, then click **Console Output**:
 
 ```
-<!-- PASTE CONSOLE OUTPUT HERE -->
+Started by user admin
+
+Obtained Ex9/Jenkinsfile from git https://github.com/PraneethUpadhya195/devops.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins
+ in /var/jenkins_home/workspace/Python-Multistage-Pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/PraneethUpadhya195/devops.git
+ > git init /var/jenkins_home/workspace/Python-Multistage-Pipeline # timeout=10
+Fetching upstream changes from https://github.com/PraneethUpadhya195/devops.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/PraneethUpadhya195/devops.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/PraneethUpadhya195/devops.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 87f92c7c49c4f5de64d477cbf78a1d83926ac92e (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 87f92c7c49c4f5de64d477cbf78a1d83926ac92e # timeout=10
+Commit message: "Temp Ex9"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Creating virtual environment and installing dependencies...
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/Python-Multistage-Pipeline/Ex9
+[Pipeline] {
+[Pipeline] sh
++ python3 --version
+Python 3.13.5
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+Running tests...
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/Python-Multistage-Pipeline/Ex9
+[Pipeline] {
+[Pipeline] sh
++ python3 -m unittest discover -s .
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.009s
+
+OK
+Hello, Jenkins Multi-Stage Pipeline!
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Deploying application...
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/Python-Multistage-Pipeline/Ex9
+[Pipeline] {
+[Pipeline] sh
++ mkdir -p python-app-deploy
++ cp app.py python-app-deploy/
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run Application)
+[Pipeline] echo
+Running application...
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/Python-Multistage-Pipeline/Ex9
+[Pipeline] {
+[Pipeline] sh
++ echo 2547
++ nohup python3 python-app-deploy/app.py
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test Application)
+[Pipeline] echo
+Testing application...
+[Pipeline] dir
+Running in /var/jenkins_home/workspace/Python-Multistage-Pipeline/Ex9
+[Pipeline] {
+[Pipeline] sh
++ python3 test_app.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+OK
+Hello, Jenkins Multi-Stage Pipeline!
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+Pipeline completed successfully!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+
 ```
 
 ### Step 7: Verify the deployed files
@@ -250,7 +372,10 @@ docker exec jenkins ls -l /var/jenkins_home/workspace/Python-MultiStage-Pipeline
 ```
 
 ```
-<!-- PASTE OUTPUT HERE (should list app.py, app.log and app.pid) -->
+total 12
+-rw-r--r-- 1 jenkins jenkins 319 Oct 17 15:17 app.log
+-rw-r--r-- 1 jenkins jenkins   5 Oct 17 15:17 app.pid
+-rw-r--r-- 1 jenkins jenkins 178 Oct 17 15:17 app.py
 ```
 
 ---
